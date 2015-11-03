@@ -1,5 +1,8 @@
 # html-numeric-input
 a textbox that only allow visitor type numeric, dot, and minus sign
+
+A working sample is here https://rawgit.com/lockevn/html-numeric-input/master/index.html
+
  
  - Support positive and negative number
  - Support decimal number (with dot)
