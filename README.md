@@ -1,5 +1,5 @@
-# html-numeric-input
-a textbox that only allow visitor type numeric, dot, and minus sign
+# Yet another html numeric input, hope it's awesome
+A textbox only allows visitor to type numeric, dot, and minus sign. This will replace the half-ass HTML5 input type=number
 
 A working sample is here https://rawgit.com/lockevn/html-numeric-input/master/index.html
 
