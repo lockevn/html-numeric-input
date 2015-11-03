@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lockevn@GURUCORE: textbox allow numeric input only</title>
+    <style>
+        body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        input{
+            padding: 1rem;
+            font-size: 2rem;
+            font-family: Consolas, Courier New, Courier, monospace;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>This textbox allow numeric value only</h1>
+    <label>
+        Number, dot, and minus sign:
+        <input type="text" name="num" id="num" />
+    </label>
+    <ul>
+        <li>Support positive and negative number</li>
+        <li>Support decimal number (with dot)</li>
+        <li>This is vanilla JS, no library required</li>
+        <li>Tested on Chrome, Firefox, IE10, IE11</li>
+        <li>Tested on Windows, the keycodes is taken from http://keycode.info</li>
+    </ul>
+
+    <script type='text/javascript'>
+    var textbox = document.getElementById("num");
+
+    // called when key is pressed
+    // in keydown, we get the keyCode
+    // in keyup, we get the input.value (including the charactor we've just typed
+    textbox.addEventListener("keydown", function _OnNumericInputKeyDown(e) {
+        var key = e.which || e.keyCode; // http://keycode.info/
+
+        if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+            // alphabet
+       key >= 65 && key <= 90 ||
+            // spacebar
+            key == 32) {
+            e.preventDefault();
+            return false;
+        }
+
+        if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+            // numbers
+       key >= 48 && key <= 57 ||
+            // Numeric keypad
+       key >= 96 && key <= 105 ||
+
+            // Allow: Ctrl+A
+       (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: Ctrl+C
+           (key == 67 && e.ctrlKey === true) ||
+            // Allow: Ctrl+X
+       (key == 88 && e.ctrlKey === true) ||
+
+            // Allow: home, end, left, right
+       (key >= 35 && key <= 39) ||
+            // Backspace and Tab and Enter
+        key == 8 || key == 9 || key == 13 ||
+            // Del and Ins
+        key == 46 || key == 45) {
+            return true;
+        }
+
+
+        var v = this.value; // v can be null, in case textbox is number and does not valid
+        if (
+            //  minus, dash
+            key == 109 || key == 189) {
+
+            // if already has -, ignore the new one
+            if (v[0] === '-') {
+                //console.log('return, already has - in the beginning');
+                return false;
+            }
+        }
+
+        if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+            // comma, period and dot on keypad
+            key == 190 || key == 188 || key == 110) {
+            // already having comma, period, dot
+            if (/[\.,]/.test(v)) {
+                //console.log('return, already has , . somewhere');
+                return false;
+            }
+        }
+    });
+
+    textbox.addEventListener("keyup", function _OnNumericInputKeyUp(e) {
+        var v = this.value;
+
+        if (+v) { // convert to number success, let it be
+            //                      "1000"  "10.9"  "1,000.9"   "011"   "10c"   "$10"
+            //+str, str*1, str-0    1000    10.9    NaN         11      NaN     NaN
+        } else if (v) {
+            // refine the value
+            v = (v[0] === '-' ? '-' : '') + v.replace(/[^0-9\.]/g, ''); // this replace also remove the -, we add it again if needed
+            v = v.replace(/\.(?=(.*)\.)+/g, '');  // remove all dot that have other dot following. After this processing, only the last dot is kept.
+
+            this.value = v; // update value only if we changed it
+        }
+    });
+
+    </script>
+
+</body>
+
+</html>
