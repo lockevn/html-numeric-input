@@ -24,13 +24,31 @@
         <input type="text" name="num" id="num" />
     </label>
     <ul>
-        <li>Support positive and negative number</li>
-        <li>Support decimal number (with default decimal separator is dot)</li>
-        <li>remove all decimalSeparator that have other decimalSeparator following. After this processing, only the last decimalSeparator is kept.</li>
-        <li>This is vanilla JS, no library required</li>
+        <li>Allow positive and negative number</li>
+        <li>Allow decimal number (with default decimalSeparator is the dot)</li>
+        <li>While user typing, it will remove all decimalSeparator that have other decimalSeparator following. After this processing, only the last decimalSeparator is kept.</li>
+        <li>This is vanilla JS, no other library required</li>
         <li>Tested on Chrome, Firefox, IE10, IE11</li>
         <li>Tested on Windows, the keycodes is taken from http://keycode.info</li>
     </ul>
+
+    <h1>What do I provide?</h1>
+    <div>
+        This is just a JS function <code>toHtmlNumericInput(string, bool)</code>. Copy it to your page and that's all.
+    </div>
+
+    <h1>How to use</h1>
+    <p>
+        Call <code>toHtmlNumericInput('num');</code>     // by default, DOT is the decimalSeparator, you can type "123456.789"
+    </p>
+    <p>
+        Call <code>toHtmlNumericInput('num', true);</code> // if you want to use COMMA as decimalSeparator, you can type "123456,789"
+    </p>
+    <p>
+        A working sample and how to use in action is <a href="https://rawgit.com/lockevn/html-numeric-input/master/index.html">here on Github</a>
+    </p>
+
+
 
     <script type='text/javascript'>
         toHtmlNumericInput('num');
